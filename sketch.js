@@ -6,6 +6,7 @@ var engine, world, mesa;
 var pacifico;
 var player, revolucao;
 var francesa,francesa1;
+var russiavsucrania;
 
 function preload() {
 pacifico = loadImage("background.gif");
@@ -25,6 +26,7 @@ player = Bodies.rectangle(160,350,160,310,options);
 World.add(world,player);
 francesa1 = 20;
 francesa = new RevolucaoFrancesa(180,150,130,100,francesa1);
+russiavsucrania = new Infantil(francesa.x,francesa.y);
 }
 
 function draw() {
@@ -37,4 +39,5 @@ imageMode(CENTER);
 image(revolucao,player.position.x, player.position.y, 160, 310);
 pop();
 francesa.massacre();
+russiavsucrania.brinquedo();
 }
