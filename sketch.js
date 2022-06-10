@@ -15,7 +15,6 @@ console.log(matriz1);
 matriz1.pop();
 console.log(matriz1);
 
-
 const Engine = Matter.Engine;
 const World = Matter.World;
 const Bodies = Matter.Bodies;
@@ -26,6 +25,8 @@ var player, revolucao;
 var francesa,francesa1;
 var russiavsucrania;
 var cheirodesangue = [];
+var light;
+var revolucionarios = [];
 
 function preload() {
 pacifico = loadImage("background.gif");
@@ -58,8 +59,9 @@ imageMode(CENTER);
 image(revolucao,player.position.x, player.position.y, 145, 310);
 pop();
 francesa.massacre();
+hakidoarmamento();
 for(var i = 0; i < cheirodesangue.length; i++){
-hackdaobservacao(cheirodesangue[i], i);
+hakidaobservacao(cheirodesangue[i], i);
 }
 }
 
@@ -76,8 +78,27 @@ cheirodesangue.push(russiavsucrania);
 }
 }
 
-function hackdaobservacao(russiavsucrania, i){
+function hakidaobservacao(russiavsucrania, i){
 if(russiavsucrania){
 russiavsucrania.brinquedo();
+}
+}
+
+function hakidoarmamento(){
+if(revolucionarios.length > 0){
+if(revolucionarios[revolucionarios.length -1]=== undefined || revolucionarios[revolucionarios.length -1].lworld.position.x < width -300){
+var positions = [-40, -60, -70, -20];
+var position = random(positions);
+var light = new Light(width, height-60, 170, 170, position);
+revolucionarios.push(light)
+}
+for(var i  = 0; i < revolucionarios.length; i++);
+if(revolucionarios[i]){
+Matter.Body.setVelocity(revolucionarios[i].lworld, {x:-0.9, y: 0});
+revolucionarios[i].bomb();
+}
+}else{
+var light = new Light(width, height-60, 170, 170, -80);
+revolucionarios.push(light)
 }
 }
