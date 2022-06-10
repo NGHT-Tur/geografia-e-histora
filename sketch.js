@@ -92,10 +92,11 @@ var position = random(positions);
 var light = new Light(width, height-60, 170, 170, position);
 revolucionarios.push(light)
 }
-for(var i  = 0; i < revolucionarios.length; i++);
+for(var i  = 0; i < revolucionarios.length; i++){
 if(revolucionarios[i]){
 Matter.Body.setVelocity(revolucionarios[i].lworld, {x:-0.9, y: 0});
 revolucionarios[i].bomb();
+}
 }
 }else{
 var light = new Light(width, height-60, 170, 170, -80);
