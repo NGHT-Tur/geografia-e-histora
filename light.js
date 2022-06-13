@@ -19,4 +19,10 @@ class Light {
         image(this.buda, 0, this.p, this.l, this.a);
         pop();
     }
+    spike(index){
+        setTimeout(()=>{
+        Matter.World.remove(world,revolucionarios[index].lworld);
+        delete revolucionarios[index]
+        },2000);
+    }
 }

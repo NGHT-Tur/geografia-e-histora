@@ -62,6 +62,7 @@ francesa.massacre();
 hakidoarmamento();
 for(var i = 0; i < cheirodesangue.length; i++){
 hakidaobservacao(cheirodesangue[i], i);
+nokia(i);
 }
 }
 
@@ -81,6 +82,10 @@ cheirodesangue.push(russiavsucrania);
 function hakidaobservacao(russiavsucrania, i){
 if(russiavsucrania){
 russiavsucrania.brinquedo();
+if(russiavsucrania.relogiodeparede.position.x >= width || russiavsucrania.relogiodeparede.position.y >= height -50){
+russiavsucrania.spike(i);
+}
+
 }
 }
 
@@ -101,5 +106,18 @@ revolucionarios[i].bomb();
 }else{
 var light = new Light(width, height-60, 170, 170, -80);
 revolucionarios.push(light)
+}
+}
+
+function nokia(index){
+for(var i = 0; i < revolucionarios.length; i++){
+if(cheirodesangue[index] !== undefined && revolucionarios[i] !== undefined){
+var aviaoepassaro = Matter.SAT.collides(cheirodesangue[index].relogiodeparede, revolucionarios[i].lworld);
+if(aviaoepassaro.collided){
+revolucionarios[i].spike(i);
+Matter.World.remove(world,cheirodesangue[index].relogiodeparede);
+delete cheirodesangue[index]
+}
+}
 }
 }

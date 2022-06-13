@@ -31,4 +31,11 @@ velocidade.mult(0.5);
 Matter.Body.setStatic(this.relogiodeparede, false);
 Matter.Body.setVelocity(this.relogiodeparede, {x:velocidade.x*(180/3.14), y:velocidade.y*(180/3.14)});
 }
+spike(index){
+    Matter.Body.setVelocity(this.relogiodeparede, {x:0, y:0});
+    setTimeout(()=>{
+    Matter.World.remove(world,this.relogiodeparede);
+    delete cheirodesangue[index]
+    },1000);
+}
 }
