@@ -27,10 +27,25 @@ var russiavsucrania;
 var cheirodesangue = [];
 var light;
 var revolucionarios = [];
+var minions2 = [];
+var minions2Imagens;
+var minions2Dados;
+var tubaraofantasma = [];
+var tubaraofantasmaImagens;
+var tubaraofantasmaDados;
+var CSGO = [];
+var CSGOImagens;
+var CSGODados;
 
 function preload() {
 pacifico = loadImage("background.gif");
 revolucao = loadImage("tower.png");
+minions2Imagens = loadImage("boat.png");
+minions2Dados = loadJSON("boat.json");
+tubaraofantasmaImagens = loadImage("brokenBoat.png");
+tubaraofantasmaDados = loadJSON("brokenBoat.json");
+CSGOImagens = loadImage("waterSplash.png");
+CSGODados = loadJSON("waterSplash.json");
 }
 
 function setup() {
@@ -47,6 +62,24 @@ World.add(world,player);
 angleMode(DEGREES);
 francesa1 = 20;
 francesa = new RevolucaoFrancesa(180,150,145,100,francesa1);
+var minions2Frames = minions2Dados.frames;
+for(var i = 0; i < minions2Frames.length; i++){
+var pos = minions2Frames[i].position;
+var img = minions2Imagens.get(pos.x, pos.y, pos.w, pos.h);
+minions2.push(img);
+}
+var tubaraofantasmaFrames = tubaraofantasmaDados.frames;
+for(var i = 0; i < tubaraofantasmaFrames.length; i++){
+var pos = tubaraofantasmaFrames[i].position;
+var img = tubaraofantasmaImagens.get(pos.x, pos.y, pos.w, pos.h);
+tubaraofantasma.push(img);
+}
+var CSGOFrames = CSGODados.frames;
+for(var i = 0; i < CSGOFrames.length; i++){
+var pos = CSGOFrames[i].position;
+var img = CSGOImagens.get(pos.x, pos.y, pos.w, pos.h);
+CSGO.push(img);
+}
 }
 
 function draw() {
@@ -82,6 +115,7 @@ cheirodesangue.push(russiavsucrania);
 function hakidaobservacao(russiavsucrania, i){
 if(russiavsucrania){
 russiavsucrania.brinquedo();
+russiavsucrania.animar();
 if(russiavsucrania.relogiodeparede.position.x >= width || russiavsucrania.relogiodeparede.position.y >= height -50){
 russiavsucrania.spike(i);
 }
@@ -94,17 +128,18 @@ if(revolucionarios.length > 0){
 if(revolucionarios[revolucionarios.length -1]=== undefined || revolucionarios[revolucionarios.length -1].lworld.position.x < width -300){
 var positions = [-40, -60, -70, -20];
 var position = random(positions);
-var light = new Light(width, height-60, 170, 170, position);
+var light = new Light(width, height-60, 170, 170, position, minions2);
 revolucionarios.push(light)
 }
 for(var i  = 0; i < revolucionarios.length; i++){
 if(revolucionarios[i]){
 Matter.Body.setVelocity(revolucionarios[i].lworld, {x:-0.9, y: 0});
 revolucionarios[i].bomb();
+revolucionarios[i].animar();
 }
 }
 }else{
-var light = new Light(width, height-60, 170, 170, -80);
+var light = new Light(width, height-60, 170, 170, -80, minions2);
 revolucionarios.push(light)
 }
 }
