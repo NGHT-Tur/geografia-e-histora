@@ -36,6 +36,13 @@ var tubaraofantasmaDados;
 var CSGO = [];
 var CSGOImagens;
 var CSGODados;
+var nadarebommaiscuidadoaguatambemmata = false;
+var explosion;
+var vocenaopodedesativardesssavezkkk;
+var water;
+var perdeukk;
+var joaovitor = false;
+var moedascomsangue = 0;
 
 function preload() {
 pacifico = loadImage("background.gif");
@@ -46,6 +53,10 @@ tubaraofantasmaImagens = loadImage("brokenBoat.png");
 tubaraofantasmaDados = loadJSON("brokenBoat.json");
 CSGOImagens = loadImage("waterSplash.png");
 CSGODados = loadJSON("waterSplash.json");
+explosion = loadSound("cannon_explosion.mp3");
+vocenaopodedesativardesssavezkkk = loadSound("background_music.mp3");
+water = loadSound("cannon_water.mp3");
+perdeukk = loadSound("pirate_laugh.mp3");
 }
 
 function setup() {
@@ -85,6 +96,13 @@ CSGO.push(img);
 function draw() {
 background(189);
 image(pacifico, 0, 0, 1200, 600);
+if(!vocenaopodedesativardesssavezkkk.isPlaying()){
+vocenaopodedesativardesssavezkkk.play();
+vocenaopodedesativardesssavezkkk.setVolume(0.05);
+}
+fill("SteelBlue");
+textSize(40);
+text("mais moedas:"+ moedascomsangue, 475,50);
 Engine.update(engine);
 rect(mesa.position.x, mesa.position.y,width*2,1);
 push();
@@ -101,6 +119,8 @@ nokia(i);
 
 function keyReleased(){
 if(keyCode === UP_ARROW){
+explosion.play();
+explosion.setVolume(0.05);
 cheirodesangue[cheirodesangue.length - 1].arminhadeagua();
 }
 }
@@ -118,6 +138,11 @@ russiavsucrania.brinquedo();
 russiavsucrania.animar();
 if(russiavsucrania.relogiodeparede.position.x >= width || russiavsucrania.relogiodeparede.position.y >= height -50){
 russiavsucrania.spike(i);
+if(russiavsucrania.carromaiscongeladodomundo === true){
+water.playMode("untilDone");
+water.play();
+water.setVolume(0.05);
+}
 }
 
 }
@@ -136,6 +161,16 @@ if(revolucionarios[i]){
 Matter.Body.setVelocity(revolucionarios[i].lworld, {x:-0.9, y: 0});
 revolucionarios[i].bomb();
 revolucionarios[i].animar();
+var sea = Matter.SAT.collides(player, revolucionarios[i].lworld);
+if(sea.collided && !revolucionarios[i].titanic){
+if(!joaovitor && !perdeukk.isPlaying()){
+perdeukk.play();
+perdeukk.setVolume(0.05);
+joaovitor = true;
+}
+nadarebommaiscuidadoaguatambemmata = true;
+sangue();
+}
 }
 }
 }else{
@@ -149,10 +184,26 @@ for(var i = 0; i < revolucionarios.length; i++){
 if(cheirodesangue[index] !== undefined && revolucionarios[i] !== undefined){
 var aviaoepassaro = Matter.SAT.collides(cheirodesangue[index].relogiodeparede, revolucionarios[i].lworld);
 if(aviaoepassaro.collided){
+moedascomsangue += 1; 
 revolucionarios[i].spike(i);
 Matter.World.remove(world,cheirodesangue[index].relogiodeparede);
 delete cheirodesangue[index]
 }
 }
 }
+}
+
+function sangue(){
+swal({
+title: "Game Over!",
+text: "Obrigado por jogar, dessa vez você perdeu, mas continue procurando tesouros",
+imageUrl: "https://raw.githubusercontent.com/whitehatjr/PiratesInvasion/main/assets/boat.png",
+imageSize: "150x150",
+confirmButtonText: "Próxima aventura"
+},
+function(botaoPressionado){
+if(botaoPressionado){
+location.reload();
+}
+})
 }
